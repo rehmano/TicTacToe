@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div id="turnContainer" class="container"></div>
+
+    <div class="grid-container"></div>
+
+    <div id="resultContainer" class="container"></div>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      var oTurn = true;
+      var numTurns = 0;
+
+      const checkWin = () => {
+        var tiles = new Array();
+        for (var i = 0; i < 9; i++) {
+          tiles += $("#t" + i)[0].innerText;
+          console.log(tiles[i]);
+        }
+      };
+
+      const executeHit = targetId => {
+        $("#" + targetId).append(oTurn ? "o" : "x");
+        console.log($("#" + targetId));
+        oTurn = oTurn ? false : true;
+        if (oTurn) {
+          checkWin();
+          $("#turnContainer")
+            .empty()
+            .append("It's O's turn!");
+        } else {
+          checkWin();
+          $("#turnContainer")
+            .empty()
+            .append("It's X's turn!");
+        }
+      };
+
+      const logicTTT = event => {
+        executeHit(event.target.id);
+      };
+
+      const beginTTT = () => {
+        $("#turnContainer").append("It's O's turn");
+
+        for (var i = 0; i < 9; i++) {
+          $(".grid-container").append(
+            '<div id="t' + i + '" class="grid-item"></div>'
+          );
+          $("#t" + i).click(logicTTT);
+        }
+      };
+
+      beginTTT();
+    </script>
+  </body>
+</html>
