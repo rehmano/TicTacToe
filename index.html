@@ -21,6 +21,15 @@
       var oTurn = true;
       var numTurns = 0;
 
+      const tilesEqual = tileNums => {
+        var prev = "0";
+        for (var i = 0; i < tileNums.length; i++) {
+          if ((i = 0)) {
+            prev = $("#t" + tileNums[i]).innerHtml;
+          }
+        }
+      };
+
       const checkWin = () => {
         var tiles = new Array();
         for (var i = 0; i < 9; i++) {
@@ -29,20 +38,35 @@
         }
       };
 
+      const changeTurn = turn => {
+        $("#turnContainer")
+          .empty()
+          .append("It's " + turn + " turn!");
+      };
+
+      const disableTile = (targetId, turn) => {
+        $("#" + targetId)
+          .addClass("grid-item-disabled-" + turn)
+          .removeClass("grid-item");
+      };
+
       const executeHit = targetId => {
-        $("#" + targetId).append(oTurn ? "o" : "x");
+        console.log($("#" + targetId));
+        $("#" + targetId)
+          .unbind("click")
+          .append(oTurn ? "o" : "x")
+          .addClass("grid-item-disabled")
+          .removeClass("grid-item");
         console.log($("#" + targetId));
         oTurn = oTurn ? false : true;
         if (oTurn) {
+          disableTile(targetId, "o");
           checkWin();
-          $("#turnContainer")
-            .empty()
-            .append("It's O's turn!");
+          changeTurn("O's");
         } else {
+          disableTile(targetId, "x");
           checkWin();
-          $("#turnContainer")
-            .empty()
-            .append("It's X's turn!");
+          changeTurn("X's");
         }
       };
 
@@ -55,7 +79,7 @@
 
         for (var i = 0; i < 9; i++) {
           $(".grid-container").append(
-            '<div id="t' + i + '" class="grid-item"></div>'
+            '<div id="t' + i + '" class="grid-item noselect"></div>'
           );
           $("#t" + i).click(logicTTT);
         }
