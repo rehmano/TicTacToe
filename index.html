@@ -91,9 +91,7 @@
           disableTile(targetId, "o");
           if (checkWin()) {
             $(".grid-container").empty();
-            $("#resultContainer")
-              .empty()
-              .append("O has won.");
+            $("#resultContainer").append("\nO has won.");
             beginTTT();
             return;
           }
@@ -103,9 +101,7 @@
           disableTile(targetId, "x");
           if (checkWin()) {
             $(".grid-container").empty();
-            $("#resultContainer")
-              .empty()
-              .append("X has won.");
+            $("#resultContainer").append("\nX has won.");
             beginTTT();
             return;
           }
